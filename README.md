@@ -1,9 +1,11 @@
 # cgaty
 Hooking the GDT Installing a Call Gate. POC for Rootkit Arsenal Book
 
+Ode to Dreg chapter By Bill Blunden in the Second edition of the book Rootkit Arsenal:
+
 ![ScreenShot](https://github.com/David-Reguera-Garcia-Dreg/cgaty/blob/master/rkarsenal.png)
 
-Ode to Dreg chapter By Bill Blunden in the Second edition of the book Rootkit Arsenal: http://www.amazon.com/The-Rootkit-Arsenal-Evasion-ebook/dp/B007RFXCEW 
+http://www.amazon.com/The-Rootkit-Arsenal-Evasion-ebook/dp/B007RFXCEW 
 
 "While I was recovering from writing the first edition of this book, I received an email from David Reguera Garcia (a.k.a Dreg) that included code to deal with the case of multiple processors. To show my appreciation for his effort, I offered to include his proof-of-concept code in the second edition. Thanks David!
 
