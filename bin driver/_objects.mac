@@ -1,0 +1,17 @@
+
+
+386_OBJECTS=\
+ $(OBJ_PATH)\$O\call_gates.obj \
+
+
+
+
+
+# lowercased
+BASEDIR=c:\winddk\6001.17121
+OBJECT_ROOT=c:\winddk\6001.17121
+MAKEDIR_LOWERCASE=c:\winddk\6001.17121\src\cgaty
+MAKEDIR_RELATIVE_TO_BASEDIR=src\cgaty
+OBJ_PATH=c:\winddk\6001.17121\src\cgaty
+CONCURRENT_MIDL=0
+CONCURRENT_MANIFEST_BUILD=0
