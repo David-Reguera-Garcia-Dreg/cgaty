@@ -14,6 +14,7 @@ Nowadays we can't easily access to /Device/PhysicalMemory, I recommend reading t
 IMHO, the best way to install a Call Gate is using the driver like the example of the book Rootkit Arsenal, now I'm going to explain the example and I'm going to add some things I see that are missing:
 An entry in the GDT looks like this:
 
+```c
 typedef struct _SEG_DESCRIPTOR
 {
 WORD size_00_15;
@@ -30,9 +31,11 @@ WORD DB:1;
 WORD gFlag:1;
 WORD baseAddress_24_31:8;
 } SEG_DESCRIPTOR, *PSEG_DESCRIPTOR;
+```
 
 A Call Gate is an entry type in the GDT which has the following appearance:
 
+```c
 typedef struct _CALL_GATE_DESCRIPTOR
 {
 WORD offset_00_15;
@@ -45,6 +48,7 @@ WORD dpl:2;
 WORD pFlag:1;
 WORD offset_16_31;
 } CALL_GATE_DESCRIPTOR, *PCALL_GATE_DESCRIPTOR;
+```
 
 offset_00_15: is the bottom of the address of the routine to be executed in ring0, offset_16_31 is the top.
 selector: specifies the code segment with the value KGDT_R0_CODE (0 × 8), the routine will run ring0 privileges.
@@ -57,11 +61,13 @@ To create a Call Gate we can follow the following steps:
 1. Build the Call Gate that points to our routine.
 2. Read the GDTR registry in order to find the GDT using the command: SGDT. The record GDTR has the following appearance:
 
+```c
 typedef struct _GDTR
 {
 WORD nBytes;
 DWORD baseAddress;
 } GDTR;
+```
 
 We can obtain the number of entries in the GDT with GDTR.nBytes/8
 
@@ -76,31 +82,39 @@ Now is time for a more detailed view, the POC code of the book doesn't allow the
 
 On Windows is easy to control with two APIs: to get the number of COREs you can use:
 
+```c
 GetSystemInfo:
 void WINAPI GetSystemInfo(
 __out LPSYSTEM_INFO lpSystemInfo
 );
+```
 
 You can use GetLogicalProcessorInformation to configure the number of COREs.
 SYSTEM_INFO has the following appearance:
 
+```c
 typedef struct _SYSTEM_INFO {
 …
 DWORD dwNumberOfProcessors;
 …
 }SYSTEM_INFO;
+```
 
 We do a loop with the field dwNumberOfProcessors that executes CORE by CORE by adding the Call Gate, you can also force the driver to install the Call Gate in the first core (1) and the user space application will be executed only in the core 1, this is accomplished using the API: SetThreadAffinityMask, as follows:
 
+```c
 DWORD_PTR WINAPI SetThreadAffinityMask(
 __in HANDLE hThread,
 __in DWORD_PTR dwThreadAffinityMask
 );
+```
 
 Passing a GetCurrentThread () and the value 1 as AffinityMask,
 
+```c
 Affinity = 1;
 SetThreadAffinityMask( GetCurrentThread(), Affinity );
+```
 
 Be careful, DWORD_PTR is not a pointer to a DWORD, is passed by value.
 
@@ -109,12 +123,14 @@ You can do a loop for the number of processors and the rate variable (the first 
 I attached a driver as POC where I show all the cores of the GDT, the Call Gate only appears in one CORE.
 
 To do this from a driver is needed:
-
+```c
 ZwQuerySystemInformation( SystemBasicInformation, & system_basic_information, sizeof( system_basic_information ), NULL );
+```
 
 To obtain the number of cores:
-
+```c
 ZwSetInformationThread( (HANDLE) -2, ThreadAffinityMask, & AffinityMask, sizeof( AffinityMask ) );
+```
 
 To change the core, -2 is the equivalent to GetCurrent...
 
@@ -122,16 +138,14 @@ Another strange thing of the book's POC is that GDT was passed by value instead 
 
 That's all, the code is pretty clear, I hope you understood, greetings from 48bits.
 
-Download the driver here: http://www.48bits.com/files/cgaty.rar
-
 Driver tested in: XP and VISTA (bin driver: WinDDK 6001.17121 & XP x86 Free build).
 
 Some readings about call gates:
 
-http://www.phrack.com/issues.html?issue=59&id=16
-http://en.wikipedia.org/wiki/Call_gate
-http://www.intel.com/design/processor/manuals/253668.pdf
-http://ricardonarvaja.info/WEB/OTROS/TUTES%20SACCOPHARYNX/
-http://members.fortunecity.com/blackfenix/callgates.html
+* http://www.phrack.com/issues.html?issue=59&id=16
+* http://en.wikipedia.org/wiki/Call_gate
+* http://www.intel.com/design/processor/manuals/253668.pdf
+* http://ricardonarvaja.info/WEB/OTROS/TUTES%20SACCOPHARYNX/
+* http://members.fortunecity.com/blackfenix/callgates.html
 
 This is the translation of my spanish post published in blog.48bits.com: http://blog.48bits.com/2010/01/08/rootkit-arsenal-installing-a-call-gate/
