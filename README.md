@@ -7,9 +7,9 @@ Ode to Dreg chapter By Bill Blunden in the Second edition of the book Rootkit Ar
 
 http://www.amazon.com/The-Rootkit-Arsenal-Evasion-ebook/dp/B007RFXCEW 
 
-"While I was recovering from writing the first edition of this book, I received an email from David Reguera Garcia (a.k.a Dreg) that included code to deal with the case of multiple processors. To show my appreciation for his effort, I offered to include his proof-of-concept code in the second edition. Thanks David!
+> "While I was recovering from writing the first edition of this book, I received an email from David Reguera Garcia (a.k.a Dreg) that included code to deal with the case of multiple processors. To show my appreciation for his effort, I offered to include his proof-of-concept code in the second edition. Thanks David!
 
-Dreg's work inspired me to write a multiprocessor version of HookGDT. In a nutshell, I recycled the tools I used in the HookSYSTENTER example to modify the GDT assigned to each processor." 
+> Dreg's work inspired me to write a multiprocessor version of HookGDT. In a nutshell, I recycled the tools I used in the HookSYSTENTER example to modify the GDT assigned to each processor." 
 
 Thx Bill for that words :-)
 
