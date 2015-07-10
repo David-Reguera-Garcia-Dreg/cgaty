@@ -1,7 +1,17 @@
 # cgaty
 Hooking the GDT Installing a Call Gate. POC for Rootkit Arsenal Book
 
-I was reading the book “The Rootkit Arsenal: Escape and Evasion in the Dark Corners of the System” and I'd like to qualify a few things about the chapter “Hooking the GDT - Installing a Call Gate”. A PoC driver is included at the end of the article that supports WalkGDT for multiple COREs.
+![ScreenShot](https://github.com/David-Reguera-Garcia-Dreg/cgaty/blob/master/rkarsenal.png)
+
+Ode to Dreg chapter By Bill Blunden in the Second edition of the book Rootkit Arsenal: http://www.amazon.com/The-Rootkit-Arsenal-Evasion-ebook/dp/B007RFXCEW 
+
+"While I was recovering from writing the first edition of this book, I received an email from David Reguera Garcia (a.k.a Dreg) that included code to deal with the case of multiple processors. To show my appreciation for his effort, I offered to include his proof-of-concept code in the second edition. Thanks David!
+
+Dreg's work inspired me to write a multiprocessor version of HookGDT. In a nutshell, I recycled the tools I used in the HookSYSTENTER example to modify the GDT assigned to each processor." 
+
+Thx Bill for that words :-)
+
+While I was reading the book (first edition) “The Rootkit Arsenal: Escape and Evasion in the Dark Corners of the System” and I'd like to qualify a few things about the chapter “Hooking the GDT - Installing a Call Gate”. A PoC driver is included at the end of the article that supports WalkGDT for multiple COREs.
 
 A Call Gate is a mechanism in the Intel x86 architecture to change privilege levels of the CPU when running a predefined function that is called by the instruction CALL/JMP FAR.
 
