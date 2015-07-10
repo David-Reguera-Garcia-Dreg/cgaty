@@ -62,11 +62,11 @@ WORD offset_16_31;
 } CALL_GATE_DESCRIPTOR, *PCALL_GATE_DESCRIPTOR;
 ```
 
-offset_00_15: is the bottom of the address of the routine to be executed in ring0, offset_16_31 is the top.
-selector: specifies the code segment with the value KGDT_R0_CODE (0 × 8), the routine will run ring0 privileges.
-argCount: the number of arguments of the routine in DWORDs.
-type: the descriptor type for a 32-bit Call Gate needs the value 0xC
-dpl: minimum privileges that the code must have to call the routine, in this case 0×3, because it will be called by the routine ring3
+* offset_00_15: is the bottom of the address of the routine to be executed in ring0, offset_16_31 is the top.
+* selector: specifies the code segment with the value KGDT_R0_CODE (0 × 8), the routine will run ring0 privileges.
+* argCount: the number of arguments of the routine in DWORDs.
+* type: the descriptor type for a 32-bit Call Gate needs the value 0xC
+* dpl: minimum privileges that the code must have to call the routine, in this case 0×3, because it will be called by the routine ring3
 
 To create a Call Gate we can follow the following steps:
 
